@@ -36,6 +36,7 @@ in
     firefox-wayland
     lollypop
     pavucontrol
+    vlc
 
     chatty
   ];
