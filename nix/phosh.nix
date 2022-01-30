@@ -19,6 +19,10 @@ in
   ];
   mobile.outputs.uefi.fwd22_port = 22222;
 
+  services.avahi = {
+    enable = false;
+  };
+
   nixpkgs = {
     system = system;
     # overlays = [ (import ../modules/librem-nixos) ];
@@ -39,6 +43,8 @@ in
     vlc
 
     chatty
+    powertop
+    upower
   ];
 
   users.users.nixos = {
