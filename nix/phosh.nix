@@ -44,7 +44,7 @@ in
 
     chatty
     powertop
-    upower
+    waypipe
   ];
 
   users.users.nixos = {
