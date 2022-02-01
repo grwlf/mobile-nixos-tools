@@ -23,6 +23,10 @@ in
     enable = false;
   };
 
+  networking.firewall = {
+    package = pkgs.iptables-legacy;
+  };
+
   nixpkgs = {
     system = system;
     # overlays = [ (import ../modules/librem-nixos) ];
@@ -30,6 +34,8 @@ in
 
   programs.geary.enable = false;
   programs.calls.enable = true;
+
+  # systemd.services."modem-control".enable = false;
 
   environment.systemPackages = with pkgs; [
     ncdu
@@ -45,6 +51,13 @@ in
     chatty
     powertop
     waypipe
+
+    android-tools
+    git
+    atinout
+    minicom
+    usbutils
+    gcc
   ];
 
   users.users.nixos = {
