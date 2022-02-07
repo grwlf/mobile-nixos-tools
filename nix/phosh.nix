@@ -32,6 +32,12 @@ in
     '';
   };
 
+  # services.ntp = {
+  #   enable = true;
+  #   servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
+  #   extraFlags=["-4"];
+  # };
+
   networking.firewall = {
     package = pkgs.iptables-legacy;
   };
@@ -45,6 +51,19 @@ in
   programs.calls.enable = true;
 
   # systemd.services."modem-control".enable = false;
+
+  systemd.services.clockmon = {
+    enable = true;
+    description = "Clock issue monitoring service";
+    unitConfig = {
+      Type = "simple";
+    };
+    path = with pkgs; [util-linux wget gawk gnused ps coreutils];
+    serviceConfig = {
+      ExecStart = "${../sh/clockmon.sh}";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
 
   environment.systemPackages = with pkgs; [
     ncdu
@@ -67,6 +86,9 @@ in
     minicom
     usbutils
     gcc
+    wget
+    tmux
+    devmem2
   ];
 
   users.users.nixos = {
